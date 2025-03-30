@@ -9,6 +9,7 @@ import numpy as np
 import uvicorn
 from PIL import Image
 import io
+import asyncio
 
 app = FastAPI()
 
@@ -24,9 +25,10 @@ yugask = load_model(r"model/skin_disease_model.keras")
 
 CLASS_LABELS = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
 
-@app.get("/ping")
+@app.api_route("/ping", methods=["GET", "HEAD"])
 async def ping():
-    return {"message": "Server is running!"}
+    await asyncio.sleep(0.1)
+    return {"message": "server is running"}
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
