@@ -23,7 +23,7 @@ app.add_middleware(
 
 yugask = load_model(r"model/skin_disease_model.keras")
 
-CLASS_LABELS = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
+class_list = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
 
 @app.api_route("/ping", methods=["GET", "HEAD"])
 async def ping():
@@ -43,7 +43,7 @@ async def predict(file: UploadFile = File(...)):
         pred_ind = np.argmax(pred, axis=1)[0]
         pred_conf = pred[0][pred_ind]
         
-        return {"predicted_class": CLASS_LABELS[pred_ind], "confidence": float(pred_conf) * 100}
+        return {"predicted_class": class_list[pred_ind], "confidence": float(pred_conf) * 100}
     except Exception as e:
         return {"error": str(e)}
 
