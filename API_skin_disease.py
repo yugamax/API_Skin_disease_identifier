@@ -1,3 +1,6 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 from fastapi import FastAPI, File, UploadFile
 from tensorflow.keras.models import load_model
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,7 +9,6 @@ import numpy as np
 import uvicorn
 from PIL import Image
 import io
-import os
 
 app = FastAPI()
 
