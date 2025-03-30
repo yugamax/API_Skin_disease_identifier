@@ -26,11 +26,6 @@ CLASS_LABELS = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper
 
 @app.get("/ping")
 async def ping():
-    img = Image.open(io.BytesIO(r"test_run/uptime.jpeg")).convert("RGB")
-    img = img.resize((224 , 224))  
-    img_arr = img_to_array(img) / 255.0
-    img_arr = np.expand_dims(img_arr, axis=0)
-    test = yugask.predict(img_arr)
     return {"message": "Server is running!"}
 
 @app.post("/predict")
