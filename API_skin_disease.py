@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],)
 
 
-yugask = load_model(r"model\skin_disease_model.keras")
+yugask = load_model(r"model/skin_disease_model.keras")
 
 CLASS_LABELS = ["Class_Acne and Rosacea Photos", "ClasAthelete foots_2", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
 
