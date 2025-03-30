@@ -20,7 +20,7 @@ app.add_middleware(
 
 yugask = load_model(r"model/skin_disease_model.keras")
 
-CLASS_LABELS = ["Acne and Rosacea Photos", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
+CLASS_LABELS = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
 
 @app.get("/ping")
 async def ping():
