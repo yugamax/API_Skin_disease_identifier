@@ -44,7 +44,7 @@ async def predict(file: UploadFile = File(...)):
         pred_conf = pred[0][pred_ind]
         
         if float(pred_conf) < 0.7:
-            return {"predicted_class": class_list[3], "confidence": (float(100)-float(pred_conf)) * 100}
+            return {"predicted_class": class_list[3], "confidence": (float(1)-float(pred_conf)) * 100}
         else:
             return {"predicted_class": class_list[pred_ind], "confidence": float(pred_conf) * 100}
                 
