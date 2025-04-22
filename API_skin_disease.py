@@ -1,6 +1,4 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
 from fastapi import FastAPI, File, UploadFile
 from tensorflow.keras.models import load_model
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +21,7 @@ app.add_middleware(
 
 yugask = load_model(r"model/skin_disease_model.keras")
 
-class_list = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
+class_list = ["Acne and Rosacea", "Athelete foots", "Chickenpox", "Give proper skin image! (zoom/focus on the skin)", "Melanocytic nevus", "Melanoma", "Shingles", "Squamous cell carcinoma", "Tinea Ringworm Candidiasis", "Vascular lesion" , "You have a Clear skin"]
 
 @app.api_route("/ping", methods=["GET", "HEAD"])
 async def ping():
@@ -43,7 +41,14 @@ async def predict(file: UploadFile = File(...)):
         pred_ind = np.argmax(pred, axis=1)[0]
         pred_conf = pred[0][pred_ind]
         
-        return {"predicted_class": class_list[pred_ind], "confidence": float(pred_conf) * 100}
+        if float(pred_conf) < 0.6:
+            if float(pred_conf) < 0.5:
+                return {"predicted_class": class_list[3], "confidence": (float(1)-float(pred_conf)) * 100}
+            else:
+                return {"predicted_class": class_list[3], "confidence": float(pred_conf) * 100}
+        else:
+            return {"predicted_class": class_list[pred_ind], "confidence": float(pred_conf) * 100}
+                
     except Exception as e:
         return {"error": str(e)}
 
